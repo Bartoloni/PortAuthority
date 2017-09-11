@@ -110,9 +110,38 @@ public class Host implements Serializable {
         String vendor;
 
         if (cursor.moveToFirst()) {
-            vendor = cursor.getString(cursor.getColumnIndex("vendor"));
+            //fix  all uppercase vendor's names... and wrong names.. (example: Asiarock-->Asrock)
+            vendor = (cursor.getString(cursor.getColumnIndex("vendor")).toLowerCase());
+            vendor = vendor.replace("tp-link", "TP-Link");
+            vendor = vendor.replace("giga-byte", "Giga-Byte");
+            vendor = vendor.replace("ltd", "LTD");
+            vendor = vendor.replace("hongkong", "Hongkong");
+            vendor = vendor.replace("co.", "CO.");
+            vendor = vendor.replace(" corporation", " Corporation");
+            vendor = vendor.replace("inc.", "INC.");
+            vendor = vendor.replace("computer", "Computer");
+            vendor = vendor.replace("corporate", "Corporate");
+            vendor = vendor.replace("hon hai", "Hon Hai");
+            vendor = vendor.replace("htc", "HTC");
+            vendor = vendor.replace("tinno", "Tinno");
+            vendor = vendor.replace("asiarock", "Asrock");
+            vendor = vendor.replace("incorporation", "Corporation");
+            vendor = vendor.substring(0, 1).toUpperCase() + vendor.substring(1); //first letter uppercase
         } else {
             vendor = "Vendor not in database";
+            // manually add unknown vendors (September 2017)
+            if (mac.equals("00ce39")) vendor += " (Emtec ethernet)";
+            if (mac.equals("c6ea1d")) vendor += " (Telecom Italia)";
+            if (mac.equals("3ca067")) vendor += " (Liteon TV module)";
+            if (mac.equals("d4dccd")) vendor += " (Apple)";
+            if (mac.equals("4c74bf")) vendor += " (Apple)";
+            if (mac.equals("b4e62a")) vendor += " (LG Innotek)";
+            if (mac.equals("a04c5b")) vendor += " (Shenzhen Tinno Mobile)";
+            if (mac.equals("58c5cb")) vendor += " (Samsung Electronics Co.,Ltd.)";
+            if (mac.equals("6459f8")) vendor += " (Vodafone Modem)";
+            if (mac.equals("f8e903")) vendor += " (D-Link International)";
+            if (mac.equals("fc1910")) vendor += " (Samsung Electronics Co.,Ltd)";
+            if (mac.equals("283f69")) vendor += " (Sony Mobile Communications AB)";
         }
 
         cursor.close();
