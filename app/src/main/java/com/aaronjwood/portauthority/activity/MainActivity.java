@@ -64,6 +64,7 @@ public final class MainActivity extends AppCompatActivity implements MainAsyncRe
     private TextView signalStrength;
     private TextView ssid;
     private TextView bssid;
+    private TextView populate;
     private Button discoverHostsBtn;
     private String discoverHostsStr; // Cache this so it's not looked up every time a host is found.
     private ProgressDialog scanProgressDialog;
@@ -102,6 +103,9 @@ public final class MainActivity extends AppCompatActivity implements MainAsyncRe
         wifi = new Wireless(getApplicationContext());
         scanHandler = new Handler(Looper.getMainLooper());
 
+        populate = (TextView) findViewById(R.id.populate);
+        populate.setVisibility(View.GONE);
+        
         setupHostsAdapter();
         setupDrawer();
         setupReceivers();
@@ -178,6 +182,9 @@ public final class MainActivity extends AppCompatActivity implements MainAsyncRe
 
                     return;
                 }
+
+                discoverHostsBtn.setText("wait...");
+                populate.setVisibility(View.VISIBLE);
 
                 setAnimations();
 
@@ -566,6 +573,9 @@ public final class MainActivity extends AppCompatActivity implements MainAsyncRe
 
             @Override
             public void run() {
+                
+                populate.setVisibility(View.GONE);
+
                 hosts.add(output);
                 hostAdapter.sort(new Comparator<Host>() {
 
