@@ -129,19 +129,12 @@ public class Host implements Serializable {
             vendor = vendor.substring(0, 1).toUpperCase() + vendor.substring(1); //first letter uppercase
         } else {
             vendor = "Vendor not in database";
-            // manually add unknown vendors (September 2017)
+            // manually added/removed unknown(or wrong) vendors (September 2017 after introducing new datbase.)
             if (mac.equals("00ce39")) vendor += " (Emtec ethernet)";
             if (mac.equals("c6ea1d")) vendor += " (Telecom Italia)";
             if (mac.equals("3ca067")) vendor += " (Liteon TV module)";
-            if (mac.equals("d4dccd")) vendor += " (Apple)";
-            if (mac.equals("4c74bf")) vendor += " (Apple)";
-            if (mac.equals("b4e62a")) vendor += " (LG Innotek)";
             if (mac.equals("a04c5b")) vendor += " (Shenzhen Tinno Mobile)";
-            if (mac.equals("58c5cb")) vendor += " (Samsung Electronics Co.,Ltd.)";
-            if (mac.equals("6459f8")) vendor += " (Vodafone Modem)";
-            if (mac.equals("f8e903")) vendor += " (D-Link International)";
-            if (mac.equals("fc1910")) vendor += " (Samsung Electronics Co.,Ltd)";
-            if (mac.equals("283f69")) vendor += " (Sony Mobile Communications AB)";
+            
         }
 
         cursor.close();
