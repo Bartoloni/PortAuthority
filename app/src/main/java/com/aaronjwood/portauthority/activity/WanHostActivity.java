@@ -59,7 +59,10 @@ public final class WanHostActivity extends HostActivity {
             @Override
             public void onClick(View v) {
                 super.onClick(v);
-
+                //close keyboard after clicking SCAN
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                
                 int startPort = 1;
                 int stopPort = 1024;
                 scanProgressDialog = new ProgressDialog(WanHostActivity.this, R.style.DialogTheme);
