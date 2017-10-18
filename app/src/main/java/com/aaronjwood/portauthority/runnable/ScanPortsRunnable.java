@@ -54,14 +54,8 @@ public class ScanPortsRunnable implements Runnable {
                 socket.setReuseAddress(true);
                 socket.setTcpNoDelay(true);
                 socket.connect(new InetSocketAddress(ip, i), timeout);
-            } catch (SocketTimeoutException | IllegalBlockingModeException | IllegalArgumentException e) {
-                activity.processFinish(e);
-            } catch (IOException e) {
-                activity.processFinish(1);
-                continue; // Connection failures mean that the port isn't open.
-            }
-
-            SparseArray<String> portData = new SparseArray<>();
+                
+                SparseArray<String> portData = new SparseArray<>();
             String data = null;
             try {
                 if (i == 22) {
@@ -82,6 +76,13 @@ public class ScanPortsRunnable implements Runnable {
                 } catch (IOException ignored) {
                     // Something's really wrong if we can't close the socket...
                 }
+            }
+                
+            } catch (SocketTimeoutException | IllegalBlockingModeException | IllegalArgumentException e) {
+                activity.processFinish(e);
+            } catch (IOException e) {
+                activity.processFinish(1);
+                continue; // Connection failures mean that the port isn't open.
             }
         }
     }
